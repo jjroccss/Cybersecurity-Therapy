@@ -183,7 +183,7 @@ function verifyToken(req, res, next) {
 
 // restricted api controller
 app.get('/endpoint', verifyToken, (req, res) => {
-if (!req.decodedToken.role !== 'admin') return res.status(403).send({ message: 'not authorized' })
+if (req.decodedToken.role !== 'admin') return res.status(403).send({ message: 'not authorized' })
     function((err, result) => {
         if (!err) {
             res.status(200).send({ result })
@@ -258,7 +258,7 @@ var csrf = require("csurf")
 var csrfProtection = csrf()
 app.get("/csrfgettoken", csrfProtection, (req, res) => {
     var csrfToken = req.csrfToken()
-    res.status(200).send(`{"csrfToken":"${csrfToken}$"}`)
+    res.status(200).send(`{"csrfToken":"${csrfToken}"}`)
     ...
     res.send("success!")
 })
